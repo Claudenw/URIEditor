@@ -12,11 +12,11 @@ The URI matcher accepts regular expression matches for the various components of
 generate a regular expression to match the pattern or can be used to test if various URIs are matched 
 by the entire pattern.
 
-# URIEditor
+# PatternReplacer
 
 Extends the URIMatcher.
 
-The constructor takes a pattern that is then used to edit the matching URI and return a string.
+The constructor takes a pattern that is then used to convert the matching URI into string.
 The pattern uses the special tokens {scheme}, {host}, {port}, {path}, {fragment} and {uri} to identify
 the various parts of the URI to be inserted in the resulting string.  In addition each token may 
 include a colon and an index indicating the matching group within the component represented by the token.
@@ -27,7 +27,7 @@ string "com has the www server"
 
 # URIRewriter
 
-Requires a URIEditor in its constructor.
+Requires a PatternReplacer in its constructor.
 
 It is intended to be used in situations where editing of URIs in line is required.  The rewrite() method
 accepts a URI as an argument.  If the URI matches the URIEditor then the editor.edit() is executed and 
