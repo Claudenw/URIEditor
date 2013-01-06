@@ -22,7 +22,4 @@ URI strings using regular expressions</description>
   <organization>
   	<name>xenei.org</name>
   </organization>
-  <scm>
-  	<url>https://github.com/Claudenw/URIEditor</url>
-  </scm>
 </project>
