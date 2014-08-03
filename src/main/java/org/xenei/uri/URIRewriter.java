@@ -52,7 +52,13 @@ public class URIRewriter {
 	 */
 	public URI rewrite(URI uri) throws URISyntaxException {
 		if (editor.matches(uri)) {
+			try {
 			return new URI(editor.populate(uri));
+			}
+			catch (IllegalArgumentException e)
+			{
+				throw new URISyntaxException( uri.toString(), e.getMessage() );
+			}
 		}
 		return uri;
 
