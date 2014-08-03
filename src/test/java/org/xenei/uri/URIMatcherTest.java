@@ -121,7 +121,6 @@ public class URIMatcherTest {
 	
 	@Test
 	public void testAsRegEx() {
-//		assertEquals( "([^:]+)://([^/:])(:[0-9]+)?([^#]*)(#(.*))?", matcher.asRegEx() );
 		assertTrue( "Did not match full uri", Pattern.matches( matcher.asRegEx() , "http://example.com:80/foo/foo2#bar"));
 		assertTrue( "Did not match no scheme", Pattern.matches( matcher.asRegEx() , "//example.com:80/foo/foo2#bar"));
 		assertTrue( "Did not match no server", Pattern.matches( matcher.asRegEx() , "http:/foo/foo2#bar"));

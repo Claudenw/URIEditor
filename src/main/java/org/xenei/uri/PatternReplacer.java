@@ -101,6 +101,11 @@ public class PatternReplacer extends URIMatcher {
 	 */
 	public String populate(URI uri) {
 
+		if ( ! this.matches(uri))
+		{
+			throw new IllegalArgumentException( "URI does not match regular expression");
+		}
+		
 		String retval = pattern;
 
 		while (retval.contains("{scheme")) {
@@ -110,19 +115,31 @@ public class PatternReplacer extends URIMatcher {
 			retval = subEdit(retval, "{host", uri.getHost(), getHost());
 		}
 		while (retval.contains("{port}")) {
-			retval = retval.replace("{port}", Integer.toString(uri.getPort()));	
+			if (uri.getPort() == URIMatcher.NO_PORT)
+			{
+				retval = retval.replace("{port}", "");	
+			}
+			else
+			{
+				retval = retval.replace("{port}", Integer.toString(uri.getPort()));	
+			}
 		}
 
 		while (retval.contains("{path")) {
 			retval = subEdit(retval, "{path", uri.getPath(), getPath());
 		}
 		while (retval.contains("{fragment")) {
-			retval = subEdit(retval, "{fragment", uri.getPath(), getFragment());
+			retval = subEdit(retval, "{fragment", uri.getFragment(), getFragment());
 		}
 		while (retval.contains("{uri}")) {
 			retval = retval.replace("{uri}", uri.toString());
 		}
 		return retval;
+	}
+	
+	private String valueOf( String value )
+	{
+		return value==null?"":value;
 	}
 
 	// Performs the replacement on a sub section of the pattern
@@ -130,7 +147,7 @@ public class PatternReplacer extends URIMatcher {
 			Pattern p) {
 		int pos = retval.indexOf(pattern) + pattern.length();
 		if (retval.charAt(pos) == '}') {
-			return retval.replace(pattern + "}", value);
+			return retval.replace(pattern + "}", valueOf( value ));
 
 		}
 		if (retval.charAt(pos) == ':') {
@@ -138,8 +155,12 @@ public class PatternReplacer extends URIMatcher {
 			String idxStr = retval.substring(pos + 1, endpos);
 			int patternIdx = Integer.valueOf(idxStr);
 			try {
-				Matcher m = p.matcher(value);
+				Matcher m = p.matcher( valueOf( value ));
 				m.find();
+				if (m.groupCount() < patternIdx)
+				{
+					throw new IllegalArgumentException( String.format("Subpattern %s does not exist in %s matching %s", patternIdx, p, valueOf( value )) );
+				}
 				return retval.replace(
 						retval.substring(retval.indexOf(pattern), endpos + 1),
 						m.group(patternIdx));
