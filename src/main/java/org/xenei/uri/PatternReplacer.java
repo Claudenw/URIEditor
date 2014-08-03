@@ -56,7 +56,7 @@ public class PatternReplacer extends URIMatcher {
 
 	/**
 	 * A constructor that takes both a pattern and an existing URIMatcher.
-	 * @param pattern The pattern to use for replacent.
+	 * @param pattern The pattern to use for replacement.
 	 * @param copy THe URIMatcher to use for matching.
 	 */
 	public PatternReplacer(String pattern, URIMatcher copy) {
@@ -104,20 +104,20 @@ public class PatternReplacer extends URIMatcher {
 		String retval = pattern;
 
 		while (retval.contains("{scheme")) {
-			retval = subEdit(retval, "{scheme", uri.getScheme(), scheme);
+			retval = subEdit(retval, "{scheme", uri.getScheme(), getScheme());
 		}
 		while (retval.contains("{host")) {
-			retval = subEdit(retval, "{host", uri.getHost(), host);
+			retval = subEdit(retval, "{host", uri.getHost(), getHost());
 		}
 		while (retval.contains("{port}")) {
-			retval = retval.replace("{port}", Integer.toString(uri.getPort()));
+			retval = retval.replace("{port}", Integer.toString(uri.getPort()));	
 		}
 
 		while (retval.contains("{path")) {
-			retval = subEdit(retval, "{path", uri.getPath(), path);
+			retval = subEdit(retval, "{path", uri.getPath(), getPath());
 		}
 		while (retval.contains("{fragment")) {
-			retval = subEdit(retval, "{fragment", uri.getPath(), fragment);
+			retval = subEdit(retval, "{fragment", uri.getPath(), getFragment());
 		}
 		while (retval.contains("{uri}")) {
 			retval = retval.replace("{uri}", uri.toString());
