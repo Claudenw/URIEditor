@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.xenei</groupId>
 	<artifactId>URIEditor</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.1-SNAPSHOT</version>
 	<name>Regular Expression URI editing suite</name>
 	<description>A suite of classes to match and edit URIs and 
 URI strings using regular expressions</description>
