@@ -79,6 +79,18 @@ public class URIMatcher {
 	public URIMatcher() {
 	}
 
+	/**
+	 * Create a matcher that matches the URI.
+	 * @param uri The URI to construct the matcher from.
+	 */
+	public URIMatcher(URI uri) {
+		setScheme( uri.getScheme() );
+		setHost( uri.getHost() );
+		setPort( uri.getPort() );
+		setPath( uri.getPath() );
+		setFragment( uri.getFragment() );
+	}
+	
 	private String pattern(Pattern patt, String dflt, String fmt) {
 		return pattern(patt, dflt, fmt, "");
 	}
@@ -183,6 +195,18 @@ public class URIMatcher {
 	public String toString() {
 		return asRegEx();
 	}
+	
+	@Override
+	public boolean equals( Object o )
+	{
+		return (o != null && o instanceof URIMatcher) ? toString().equals( o.toString() ) : false; 
+	}
+	
+	@Override
+	public int hashCode()
+	{
+		return toString().hashCode();
+	}
 
 	/**
 	 * Set the scheme pattern to match. If not set the default matches all
@@ -234,7 +258,7 @@ public class URIMatcher {
 	 */
 
 	public URIMatcher setPort(Integer port) {
-		this.port = port==null?null:(port <= NO_PORT ? -1 : port);
+		this.port = port==null?null:(port <= NO_PORT ? NO_PORT : port);
 		return this;
 	}
 

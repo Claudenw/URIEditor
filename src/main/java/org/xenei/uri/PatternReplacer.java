@@ -41,12 +41,14 @@ public class PatternReplacer extends URIMatcher {
 	 * portion will be inserted. However, if the token is followed by a colon and a number prior
 	 * to the closing brace, the matching group from that section will be inserted.
 	 * </p><p>
-	 * For example: <br />
-	 * setting the host match segment to <code>"(.*)\.example\.(.+)"</code> <br />
-	 * setting the pattern to <code>"{host:2} has the {host:1} server"</code> <br />
-	 * matching the URI <code>"http://www.example.com/foo"</code> <br />
+	 * For example: 
+	 * <ul>
+	 * <li>setting the host match segment to <code>"(.*)\.example\.(.+)"</code> </li>
+	 * <li>setting the pattern to <code>"{host:2} has the {host:1} server"</code> </li>
+	 * <li>matching the URI <code>"http://www.example.com/foo"</code> </li>
+	 * </ul>
 	 * would yield the string <code>"com has the www server"</code>
-	 * </p>
+	 * 
 	 * @param pattern The pattern to change the URI to.
 	 */
 	public PatternReplacer(String pattern) {
